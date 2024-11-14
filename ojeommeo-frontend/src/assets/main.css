@@ -1,35 +1,39 @@
-@import './base.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
-}
+@layer base {
+    :root {
+        --color-primary-mute: theme('colors.primary.mute');
+        --color-primary-light: theme('colors.primary.light');
+        --color-primary: theme('colors.primary.DEFAULT');
+        --color-primary-dark: theme('colors.primary.dark');
+        --color-base: theme('colors.base.DEFAULT');
+        --color-disabled: theme('colors.disabled.DEFAULT');
+        --color-text-base: theme('colors.text.base.DEFAULT');
+        --color-text-light: theme('colors.text.light.DEFAULT');
+        --color-text-mute: theme('colors.text.mute.DEFAULT');
+        --color-overlay-1: theme('colors.overlay.light.1');
+        --color-overlay-2: theme('colors.overlay.light.2');
+        --color-overlay-3: theme('colors.overlay.light.3');
+    }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
-}
+    .dark {
+        --color-primary-mute: theme('colors.primary.dark-mute');
+        --color-primary-light: theme('colors.primary.dark-light');
+        --color-primary: theme('colors.primary.dark-DEFAULT');
+        --color-primary-dark: theme('colors.primary.dark');
+        --color-base: theme('colors.base.dark');
+        --color-disabled: theme('colors.disabled.DEFAULT');
+        --color-text-base: theme('colors.text.base.dark');
+        --color-text-light: theme('colors.text.light.dark');
+        --color-text-mute: theme('colors.text.mute.dark');
+        --color-overlay-1: theme('colors.overlay.dark.1');
+        --color-overlay-2: theme('colors.overlay.dark.2');
+        --color-overlay-3: theme('colors.overlay.dark.3');
+    }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+    body {
+        @apply bg-[var(--color-base)] text-[var(--color-text-base)];
+    }
 }
