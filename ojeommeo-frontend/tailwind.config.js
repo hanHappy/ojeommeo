@@ -8,13 +8,13 @@ export default {
       primary: {
         mute: '#FEF8DA',
         light: '#FEE290',
-        DEFAULT: '#FEC447',
+        DEFAULT: '#ed702d',
         dark: '#f3b72d',
         'dark-mute': '#2e3848',
         'dark-light': '#778192',
         'dark-DEFAULT': '#E8EDF3',
       },
-      base: {
+      wallpaper: {
         DEFAULT: '#FFFFFF',
         dark: '#0d1826',
       },
@@ -35,6 +35,12 @@ export default {
           dark: '#8896A3', // 다크모드 약한 텍스트
         },
       },
+      borderColor: {
+        DEFAULT: '#d0d6dd',
+      },
+      borderRadius: {
+        DEFAULT: '8px',
+      },
       overlay: {
         light: {
           1: '#00000005',
@@ -47,9 +53,6 @@ export default {
           3: '#ffffff39',
         },
       },
-    },
-    borderRadius: {
-      DEFAULT: '8px',
     },
     container: {
       center: true,

@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nanum+Gothic&display=swap');
+
+@import "./components/input.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,11 +12,18 @@
         --color-primary-light: theme('colors.primary.light');
         --color-primary: theme('colors.primary.DEFAULT');
         --color-primary-dark: theme('colors.primary.dark');
-        --color-base: theme('colors.base.DEFAULT');
+        /* wallpaper */
+        --color-wallpaper: theme('colors.wallpaper.DEFAULT');
+        /* disabled */
         --color-disabled: theme('colors.disabled.DEFAULT');
+        /* font color */
         --color-text-base: theme('colors.text.base.DEFAULT');
         --color-text-light: theme('colors.text.light.DEFAULT');
         --color-text-mute: theme('colors.text.mute.DEFAULT');
+        /* border */
+        --color-border-default: theme('colors.borderColor.DEFAULT');
+        --border-radius: theme('borderRadius.DEFAULT');
+        /* box background */
         --color-overlay-1: theme('colors.overlay.light.1');
         --color-overlay-2: theme('colors.overlay.light.2');
         --color-overlay-3: theme('colors.overlay.light.3');
@@ -23,7 +34,7 @@
         --color-primary-light: theme('colors.primary.dark-light');
         --color-primary: theme('colors.primary.dark-DEFAULT');
         --color-primary-dark: theme('colors.primary.dark');
-        --color-base: theme('colors.base.dark');
+        --color-wallpaper: theme('colors.wallpaper.dark');
         --color-disabled: theme('colors.disabled.DEFAULT');
         --color-text-base: theme('colors.text.base.dark');
         --color-text-light: theme('colors.text.light.dark');
@@ -33,7 +44,37 @@
         --color-overlay-3: theme('colors.overlay.dark.3');
     }
 
-    body {
-        @apply bg-[var(--color-base)] text-[var(--color-text-base)];
+    html, body, #app {
+        @apply min-h-screen;
     }
+
+    html {
+        font-size: 10px;
+    }
+
+    body {
+        @apply bg-[var(--color-wallpaper)] text-[var(--color-text-base)] h-full;
+        font-size: 1.4rem;
+        font-family: 'Montserrat', 'Nanum Gothic', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    #app {
+        @apply flex flex-col h-full;
+    }
+
+    main {
+        @apply flex-1 h-full;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, span, div, button, input, textarea, select {
+        font-family: 'Montserrat', 'Nanum Gothic', sans-serif;
+    }
+
+    /* 반응형 */
+    @media screen and (max-width: 768px) {
+        html {
+            font-size: 12px;
+        }
+    }
+
 }
