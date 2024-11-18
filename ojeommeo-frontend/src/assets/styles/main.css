@@ -1,80 +1,89 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nanum+Gothic&display=swap');
 
-@import "./components/input.css";
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
     :root {
-        --color-primary-mute: theme('colors.primary.mute');
-        --color-primary-light: theme('colors.primary.light');
-        --color-primary: theme('colors.primary.DEFAULT');
-        --color-primary-dark: theme('colors.primary.dark');
-        /* wallpaper */
-        --color-wallpaper: theme('colors.wallpaper.DEFAULT');
-        /* disabled */
-        --color-disabled: theme('colors.disabled.DEFAULT');
-        /* font color */
-        --color-text-base: theme('colors.text.base.DEFAULT');
-        --color-text-light: theme('colors.text.light.DEFAULT');
-        --color-text-mute: theme('colors.text.mute.DEFAULT');
-        /* border */
-        --color-border-default: theme('colors.borderColor.DEFAULT');
-        --border-radius: theme('borderRadius.DEFAULT');
-        /* box background */
-        --color-overlay-1: theme('colors.overlay.light.1');
-        --color-overlay-2: theme('colors.overlay.light.2');
-        --color-overlay-3: theme('colors.overlay.light.3');
+        --background: #FFFFFF;
+        --foreground: #0C0D0F;
+
+        --muted: #F1F5F9;
+        --muted-foreground: #64748B;
+
+        --popover: #FFFFFF;
+        --popover-foreground: #0C0D0F;
+
+        --card: #FFFFFF;
+        --card-foreground: #0C0D0F;
+
+        --border: #E1E7EF;
+        --input: #E1E7EF;
+
+        --primary: #fd5028;
+        --primary-foreground: #F0F4F8;
+
+        --secondary: #F1F5F9;
+        --secondary-foreground: #1D283A;
+
+        --accent: #F1F5F9;
+        --accent-foreground: #1D283A;
+
+        --destructive: #EF4444;
+        --destructive-foreground: #F1F5F9;
+
+        --weak: #bbbcbf;
+
+        --ring: #fd5028;
+
+        --radius: 0.5rem;
     }
 
     .dark {
-        --color-primary-mute: theme('colors.primary.dark-mute');
-        --color-primary-light: theme('colors.primary.dark-light');
-        --color-primary: theme('colors.primary.dark-DEFAULT');
-        --color-primary-dark: theme('colors.primary.dark');
-        --color-wallpaper: theme('colors.wallpaper.dark');
-        --color-disabled: theme('colors.disabled.DEFAULT');
-        --color-text-base: theme('colors.text.base.dark');
-        --color-text-light: theme('colors.text.light.dark');
-        --color-text-mute: theme('colors.text.mute.dark');
-        --color-overlay-1: theme('colors.overlay.dark.1');
-        --color-overlay-2: theme('colors.overlay.dark.2');
-        --color-overlay-3: theme('colors.overlay.dark.3');
-    }
+        --background: #0C0D0F;
+        --foreground: #F0F4F8;
 
-    html, body, #app {
-        @apply min-h-screen;
-    }
+        --muted: #1F2937;
+        --muted-foreground: #9CA3AF;
 
-    html {
-        font-size: 10px;
-    }
+        --popover: #0C0D0F;
+        --popover-foreground: #F0F4F8;
 
+        --card: #0C0D0F;
+        --card-foreground: #F0F4F8;
+
+        --border: #1F2937;
+        --input: #1F2937;
+
+        --primary: #F0F4F8;
+        --primary-foreground: #1D283A;
+
+        --secondary: #1F2937;
+        --secondary-foreground: #F0F4F8;
+
+        --accent: #1F2937;
+        --accent-foreground: #F0F4F8;
+
+        --destructive: #7F1D1D;
+        --destructive-foreground: #F0F4F8;
+
+        --weak: #bbbcbf;
+
+        --ring: #D1D5DB;
+    }
+}
+
+@layer base {
     body {
-        @apply bg-[var(--color-wallpaper)] text-[var(--color-text-base)] h-full;
-        font-size: 1.4rem;
         font-family: 'Montserrat', 'Nanum Gothic', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
 
-    #app {
-        @apply flex flex-col h-full;
+    * {
+        @apply border-border;
     }
 
-    main {
-        @apply flex-1 h-full;
+    body {
+        @apply bg-background text-foreground;
     }
-
-    h1, h2, h3, h4, h5, h6, p, span, div, button, input, textarea, select {
-        font-family: 'Montserrat', 'Nanum Gothic', sans-serif;
-    }
-
-    /* 반응형 */
-    @media screen and (max-width: 768px) {
-        html {
-            font-size: 12px;
-        }
-    }
-
 }

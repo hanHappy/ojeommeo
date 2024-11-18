@@ -1,69 +1,96 @@
+const animate = require('tailwindcss-animate')
+
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: [],
-  darkMode: 'class',
+module.exports = {
+  darkMode: ['class'],
+  safelist: ['dark'],
+  prefix: '',
+
+  content: [
+    './pages/**/*.{ts,tsx,vue}',
+    './components/**/*.{ts,tsx,vue}',
+    './app/**/*.{ts,tsx,vue}',
+    './src/**/*.{ts,tsx,vue}',
+  ],
+
   theme: {
-    extend: {},
-    colors: {
-      primary: {
-        mute: '#FEF8DA',
-        light: '#FEE290',
-        DEFAULT: '#ed702d',
-        dark: '#f3b72d',
-        'dark-mute': '#2e3848',
-        'dark-light': '#778192',
-        'dark-DEFAULT': '#E8EDF3',
-      },
-      wallpaper: {
-        DEFAULT: '#FFFFFF',
-        dark: '#0d1826',
-      },
-      disabled: {
-        DEFAULT: '#EEEEEE',
-      },
-      text: {
-        base: {
-          DEFAULT: '#333333', // 라이트모드 메인 텍스트
-          dark: '#E8EDF3', // 다크모드 메인 텍스트
-        },
-        light: {
-          DEFAULT: '#666666', // 라이트모드 중간 텍스트
-          dark: '#B8C4D0', // 다크모드 중간 텍스트
-        },
-        mute: {
-          DEFAULT: '#999999', // 라이트모드 약한 텍스트
-          dark: '#8896A3', // 다크모드 약한 텍스트
-        },
-      },
-      borderColor: {
-        DEFAULT: '#d0d6dd',
-      },
-      borderRadius: {
-        DEFAULT: '8px',
-      },
-      overlay: {
-        light: {
-          1: '#00000005',
-          2: '#0000000a',
-          3: '#00000014',
-        },
-        dark: {
-          1: '#ffffff14',
-          2: '#ffffff20',
-          3: '#ffffff39',
-        },
-      },
-    },
     container: {
       center: true,
       padding: '2rem',
       screens: {
-        sm: '640px', // @media (min-width: 640px)
-        md: '768px', // @media (min-width: 768px)
-        lg: '1024px', // @media (min-width: 1024px)
+        '2xl': '1400px',
+      },
+    },
+    extend: {
+      colors: {
+        border: 'var(--border)',
+        input: 'var(--input)',
+        ring: 'var(--ring)',
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        primary: {
+          DEFAULT: 'var(--primary)',
+          foreground: 'var(--primary-foreground)',
+        },
+        secondary: {
+          DEFAULT: 'var(--secondary)',
+          foreground: 'var(--secondary-foreground)',
+        },
+        destructive: {
+          DEFAULT: 'var(--destructive)',
+          foreground: 'var(--destructive-foreground)',
+        },
+        muted: {
+          DEFAULT: 'var(--muted)',
+          foreground: 'var(--muted-foreground)',
+        },
+        accent: {
+          DEFAULT: 'var(--accent)',
+          foreground: 'var(--accent-foreground)',
+        },
+        weak: {
+          DEFAULT: 'var(--weak)',
+        },
+        popover: {
+          DEFAULT: 'var(--popover)',
+          foreground: 'var(--popover-foreground)',
+        },
+        card: {
+          DEFAULT: 'var(--card)',
+          foreground: 'var(--card-foreground)',
+        },
+      },
+      borderRadius: {
+        xl: 'calc(var(--radius) + 4px)',
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
+      keyframes: {
+        'accordion-down': {
+          from: { height: 0 },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: 0 },
+        },
+        'collapsible-down': {
+          from: { height: 0 },
+          to: { height: 'var(--radix-collapsible-content-height)' },
+        },
+        'collapsible-up': {
+          from: { height: 'var(--radix-collapsible-content-height)' },
+          to: { height: 0 },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+        'collapsible-down': 'collapsible-down 0.2s ease-in-out',
+        'collapsible-up': 'collapsible-up 0.2s ease-in-out',
       },
     },
   },
-  plugins: [],
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  plugins: [animate],
 }
