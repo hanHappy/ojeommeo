@@ -18,7 +18,9 @@ module.exports = {
       center: true,
       padding: '2rem',
       screens: {
-        '2xl': '1400px',
+        sm: '640px', // @media (min-width: 640px)
+        md: '768px', // @media (min-width: 768px)
+        lg: '1024px', // @media (min-width: 1024px)
       },
     },
     extend: {
@@ -93,4 +95,5 @@ module.exports = {
     },
   },
   plugins: [animate],
+  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
 }

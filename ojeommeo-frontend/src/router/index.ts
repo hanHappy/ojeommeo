@@ -30,6 +30,11 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
+    path: '/sign-up',
+    name: 'SignUp',
+    component: () => import('@/views/SignUp.vue'),
+  },
+  {
     path: '/',
     component: DefaultLayout,
     children: [

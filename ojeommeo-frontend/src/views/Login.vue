@@ -11,11 +11,10 @@ import { Button } from '@/components/ui/button';
           <!-- 로고 -->
           <div class="flex items-center gap-2">
             <img
-              src="@/assets/images/logo.png"
+              src="@/assets/images/logo_full.png"
               alt="로고"
               class="h-20"
             >
-            <span class="text-5xl mt-6">ㅇㅈㅁ</span>
           </div>
         </div>
 
@@ -24,12 +23,12 @@ import { Button } from '@/components/ui/button';
           <!-- ID -->
           <Input
             type="email"
-            placeholder="ID"
+            placeholder="아이디"
           />
           <!-- password -->
           <Input
             type="password"
-            placeholder="Password"
+            placeholder="비밀번호"
             class="mt-3"
           />
 
