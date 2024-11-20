@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class OjeommeoApplication
 
 fun main(args: Array<String>) {
-	runApplication<OjeommeoApplication>(*args)
+    runApplication<OjeommeoApplication>(*args)
 }
