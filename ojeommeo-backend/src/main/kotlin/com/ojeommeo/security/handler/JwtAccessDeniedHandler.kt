@@ -11,13 +11,13 @@ import org.springframework.security.web.access.AccessDeniedHandler
 import org.springframework.stereotype.Component
 
 @Component
-class JwtAccessDeniedHandler (
-    private val objectMapper: ObjectMapper
-): AccessDeniedHandler {
+class JwtAccessDeniedHandler(
+    private val objectMapper: ObjectMapper,
+) : AccessDeniedHandler {
     override fun handle(
         request: HttpServletRequest?,
         response: HttpServletResponse?,
-        accessDeniedException: AccessDeniedException?
+        accessDeniedException: AccessDeniedException?,
     ) {
         val errorCode = ErrorCode.FORBIDDEN
 

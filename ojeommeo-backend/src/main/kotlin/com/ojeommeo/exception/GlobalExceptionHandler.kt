@@ -12,6 +12,9 @@ class GlobalExceptionHandler {
             ResponseEntity.status(errorResponse.status).body(errorResponse)
         }
 
+    @ExceptionHandler(JwtAuthenticationException::class)
+    fun handleJwtAuthenticationException(e: JwtAuthenticationException) = handleException(e.errorCode)
+
     @ExceptionHandler(ServiceException::class)
     fun handleServiceException(e: ServiceException) = handleException(e.errorCode)
 

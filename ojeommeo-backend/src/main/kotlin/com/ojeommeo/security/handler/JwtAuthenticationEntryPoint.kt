@@ -11,13 +11,13 @@ import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.stereotype.Component
 
 @Component
-class JwtAuthenticationEntryPoint (
-    private val objectMapper: ObjectMapper
-): AuthenticationEntryPoint {
+class JwtAuthenticationEntryPoint(
+    private val objectMapper: ObjectMapper,
+) : AuthenticationEntryPoint {
     override fun commence(
         request: HttpServletRequest?,
         response: HttpServletResponse?,
-        authException: AuthenticationException?
+        authException: AuthenticationException?,
     ) {
         val errorCode = ErrorCode.UNAUTHORIZED
 
@@ -28,5 +28,4 @@ class JwtAuthenticationEntryPoint (
 
         objectMapper.writeValue(response?.outputStream, ErrorResponse.of(errorCode))
     }
-
 }
