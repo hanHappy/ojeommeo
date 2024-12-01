@@ -5,6 +5,7 @@ import com.ojeommeo.security.handler.JwtAccessDeniedHandler
 import com.ojeommeo.security.handler.JwtAuthenticationEntryPoint
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
@@ -33,7 +34,8 @@ class SecurityConfig(
         http
             .csrf { it.disable() }
             .authorizeHttpRequests { auth ->
-                auth.requestMatchers("/api/auth/**").permitAll()
+                auth.requestMatchers(HttpMethod.POST, "/api/users").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/users/login").permitAll()
                     .anyRequest().authenticated()
             }
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)

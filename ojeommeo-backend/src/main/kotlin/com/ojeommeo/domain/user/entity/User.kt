@@ -13,7 +13,7 @@ import java.time.LocalDateTime
 class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long?,
     @Column(nullable = false, unique = true, length = 50)
     @Comment("로그인 아이디")
     var username: String,
