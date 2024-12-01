@@ -19,4 +19,7 @@ enum class ErrorCode(
     // User
     USER_NOT_FOUND("USER_001", HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다"),
     DUPLICATE_USERNAME("USER_002", HttpStatus.BAD_REQUEST, "사용 중인 아이디입니다"),
+
+    // Request
+    INVALID_INPUT_VALUE("REQ_001", HttpStatus.BAD_REQUEST, "입력값이 올바르지 않습니다"),
 }
