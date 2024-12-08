@@ -17,11 +17,19 @@ class JwtService(
 ) {
     private val secretKey: SecretKey = Keys.hmacShaKeyFor(SECRET_KEY.toByteArray())
 
-    fun generateToken(userDetails: UserDetails): String =
+    fun generateAccessToken(userDetails: UserDetails): String =
         Jwts.builder()
             .subject(userDetails.username)
             .issuedAt(Date(System.currentTimeMillis()))
             .expiration(Date(System.currentTimeMillis() + ACCESS_TOKEN_EXPIRATION.toLong()))
+            .signWith(secretKey)
+            .compact()
+
+    fun generateRefreshToken(userDetails: UserDetails): String =
+        Jwts.builder()
+            .subject(userDetails.username)
+            .issuedAt(Date(System.currentTimeMillis()))
+            .expiration(Date(System.currentTimeMillis() + REFRESH_TOKEN_EXPIRATION.toLong()))
             .signWith(secretKey)
             .compact()
 
