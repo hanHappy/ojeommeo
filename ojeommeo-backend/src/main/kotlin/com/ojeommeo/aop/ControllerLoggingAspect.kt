@@ -15,7 +15,6 @@ private val logger = KotlinLogging.logger {}
 @Aspect
 @Component
 class ControllerLoggingAspect {
-
     @Around("execution(* com.ojeommeo..*Controller.*(..))")
     fun logAround(joinPoint: ProceedingJoinPoint): Any? {
         val start = System.currentTimeMillis()

@@ -16,33 +16,33 @@ class User(
     val id: Long?,
     @Column(nullable = false, unique = true, length = 50)
     @Comment("로그인 아이디")
-    var username: String,
-    @Column(nullable = false, length = 50)
+    val username: String,
+    @Column(nullable = false, length = 128)
     @Comment("로그인 비밀번호")
-    var password: String,
+    val password: String,
     @Column(nullable = false, length = 50)
     @Comment("닉네임")
-    var nickname: String,
+    val nickname: String,
     @Column(name = "profile_image", length = 255)
     @Comment("프로필 이미지")
-    var profileImage: String? = null,
+    val profileImage: String?,
     @Column(nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     @Comment("사용자 권한")
-    var role: UserRole = UserRole.USER,
+    val role: UserRole = UserRole.USER,
     @Column(nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     @Comment("계정 상태")
-    var status: UserStatus = UserStatus.ACTIVE,
+    val status: UserStatus = UserStatus.ACTIVE,
     @Column(name = "last_login_at")
     @Comment("마지막 로그인 일시")
-    var lastLoginAt: LocalDateTime? = null,
+    val lastLoginAt: LocalDateTime?,
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     @Comment("가입 일시")
-    var createdAt: LocalDateTime? = null,
+    val createdAt: LocalDateTime?,
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     @Comment("업데이트 일시")
-    var updatedAt: LocalDateTime? = null,
+    val updatedAt: LocalDateTime?,
 )
