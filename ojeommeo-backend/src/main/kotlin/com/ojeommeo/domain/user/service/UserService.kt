@@ -32,7 +32,16 @@ class UserService(
         userRepository.findByUsername(username)
             .orElseThrow { ServiceException(ErrorCode.USER_NOT_FOUND) }
 
-    fun signUp(user: User) = userRepository.save(user)
+    fun signUp(user: User): User {
+        if (userRepository.existsByUsername(user.username)) {
+            throw ServiceException(ErrorCode.DUPLICATE_USERNAME)
+        }
+        if (userRepository.existsByNickname(user.nickname)) {
+            throw ServiceException(ErrorCode.DUPLICATE_NICKNAME)
+        }
+
+        return userRepository.save(user)
+    }
 
     @Transactional
     fun login(loginRequest: LoginRequest): String {

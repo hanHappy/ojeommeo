@@ -20,7 +20,7 @@ class UserController(
     @PostMapping("/api/users")
     fun signUp(
         @Valid @RequestBody signUpRequest: SignUpRequest,
-    ): ResponseEntity<Void> {
+    ): ResponseEntity<Unit> {
         userService.signUp(signUpRequest.toUserEntity(passwordEncoder))
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
