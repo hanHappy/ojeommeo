@@ -5,7 +5,7 @@ import type { SignUpRequest } from '@/types/auth';
 export const api = {
   signUp: (data: SignUpRequest) => {
     return request<void>({
-      url: '/auth/users',
+      url: '/users',
       method: 'POST',
       data,
     });

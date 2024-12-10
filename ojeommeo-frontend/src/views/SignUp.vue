@@ -11,7 +11,7 @@ import { useToast } from '@/components/ui/toast/use-toast';
 const { toast } = useToast();
 
 const signUpRequest = ref<SignUpRequest>({
-  loginId: '',
+  username: '',
   nickname: '',
   password: '',
 });
@@ -54,7 +54,7 @@ const signUp = async () => {
         <div class="mt-10">
           <!-- Login ID -->
           <Input
-            v-model="signUpRequest.loginId"
+            v-model="signUpRequest.username"
             type="text"
             placeholder="로그인 아이디"
           />
