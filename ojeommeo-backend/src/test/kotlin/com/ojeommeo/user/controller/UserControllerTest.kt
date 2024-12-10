@@ -44,7 +44,7 @@ class UserControllerTest
             mockMvc.post("/api/users") {
                 contentType = MediaType.APPLICATION_JSON
                 accept = MediaType.APPLICATION_JSON
-                content = objectMapper.writeValueAsString(testSignInRequest(999))
+                content = objectMapper.writeValueAsString(testSignInRequest())
             }.andExpect { status { isCreated() } }
         }
 
@@ -56,7 +56,6 @@ class UserControllerTest
                 content =
                     objectMapper.writeValueAsString(
                         SignUpRequest(
-                            id = 123,
                             username = "",
                             nickname = "한해피",
                             password = "password",
@@ -70,10 +69,14 @@ class UserControllerTest
 
         @Test
         fun `UserController에서 DTO가 Entity로 변환되어 UserService에 UserEntity가 전달된다`() {
+            every {
+                passwordEncoder.encode(any())
+            } returns "encodedPassword"
+
             mockMvc.post("/api/users") {
                 contentType = MediaType.APPLICATION_JSON
                 accept = MediaType.APPLICATION_JSON
-                content = objectMapper.writeValueAsString(testSignInRequest(null))
+                content = objectMapper.writeValueAsString(testSignInRequest())
             }
 
             val expected =
@@ -88,7 +91,7 @@ class UserControllerTest
                     updatedAt = null,
                 )
 
-            val savedUser = userService.signUp(testSignInRequest(null).toUserEntity(passwordEncoder))
+            val savedUser = userService.signUp(testSignInRequest().toUserEntity(passwordEncoder))
 
             assertEquals(expected.username, savedUser.username)
         }
