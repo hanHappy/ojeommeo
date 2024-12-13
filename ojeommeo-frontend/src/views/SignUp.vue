@@ -2,7 +2,7 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import type { SignUpRequest } from '@/types/auth';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { api } from '@/api/common';
 import { isApiError, isUnknownError } from '@/api/error';
 import router from '@/router';
@@ -17,11 +17,18 @@ const signUpRequest = ref<SignUpRequest>({
 });
 
 const signUp = async () => {
+  clearErrorMessages();
   try {
     await api.signUp(signUpRequest.value);
     await router.push({ name: 'Login' });
   } catch (e) {
     if (isApiError(e)) {
+      const { errors } = e;
+      errors.forEach(error => {
+        if (!errorMessages[error.field]) {
+          errorMessages[error.field] = error.message;
+        }
+      });
     } else if (isUnknownError(e)) {
       toast({
         title: '오류!',
@@ -33,6 +40,21 @@ const signUp = async () => {
     }
   }
 };
+
+// 에러 메시지
+const errorMessages = reactive({
+  username: '',
+  nickname: '',
+  password: '',
+  confirmPassword: '',
+}) as { [key: string]: string };
+
+// 에러 메시지 초기화
+function clearErrorMessages () {
+  Object.keys(errorMessages).forEach(key => {
+    errorMessages[key] = '';
+  });
+}
 </script>
 
 <template>
@@ -56,8 +78,11 @@ const signUp = async () => {
           <Input
             v-model="signUpRequest.username"
             type="text"
-            placeholder="로그인 아이디"
+            placeholder="아이디"
           />
+          <div class="error-message">
+            {{ errorMessages.username }}
+          </div>
           <!-- Nickname -->
           <Input
             v-model="signUpRequest.nickname"
@@ -65,6 +90,9 @@ const signUp = async () => {
             placeholder="닉네임"
             class="mt-3"
           />
+          <div class="error-message">
+            {{ errorMessages.nickname }}
+          </div>
           <!-- password -->
           <Input
             v-model="signUpRequest.password"
@@ -72,12 +100,18 @@ const signUp = async () => {
             placeholder="비밀번호"
             class="mt-3"
           />
+          <div class="error-message">
+            {{ errorMessages.password }}
+          </div>
           <!-- confirm password -->
           <Input
             type="password"
             placeholder="비밀번호 확인"
             class="mt-3"
           />
+          <div class="error-message">
+            {{ errorMessages.confirmPassword }}
+          </div>
 
           <Button
             class="w-full mt-8"
@@ -101,4 +135,8 @@ const signUp = async () => {
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+.error-message {
+  @apply mt-1.5 ml-2 text-destructive;
+}
+</style>

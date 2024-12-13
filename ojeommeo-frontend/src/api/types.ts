@@ -2,5 +2,11 @@ export interface ApiErrorType {
   code: string;
   status: number;
   message: string;
-  errors?: string[];
+  errors?: FieldError[];
+}
+
+export interface FieldError {
+  field: string;
+  value: string;
+  message: string;
 }

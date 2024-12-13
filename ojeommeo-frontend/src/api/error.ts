@@ -1,11 +1,11 @@
-import type { ApiErrorType } from '@/api/types';
+import type { ApiErrorType, FieldError } from './types';
 
 export class ApiError extends Error implements ApiErrorType {
   readonly code: string;
   readonly status: number;
-  readonly errors: string[];
+  readonly errors: FieldError[];
 
-  constructor (code: string, status: number, message: string, errors: string[] = []) {
+  constructor (code: string, status: number, message: string, errors: FieldError[] = []) {
     super(message);
     this.name = 'ApiError';
     this.code = code;
