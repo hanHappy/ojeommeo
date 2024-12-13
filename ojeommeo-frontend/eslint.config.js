@@ -3,8 +3,13 @@ import tseslint from 'typescript-eslint'
 import pluginVue from 'eslint-plugin-vue'
 import tsEslintParser from '@typescript-eslint/parser'
 import stylistic from '@stylistic/eslint-plugin'
+import { diff } from 'eslint-plugin-diff/dist/processors.js'
 
 export default [
+  {
+    // 수정된 코드만 적용 https://github.com/paleite/eslint-plugin-diff
+    extends: ["plugin:diff/diff"],
+  },
   { files: ['**/*.{js,ts,vue}'] },
   {
     ignores: ['**/*.config.*', '**/.output/', '**/.nuxt/', './plugins/', '**/middleware/'],
