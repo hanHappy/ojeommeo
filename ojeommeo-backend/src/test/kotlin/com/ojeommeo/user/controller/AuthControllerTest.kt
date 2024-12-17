@@ -2,9 +2,9 @@ package com.ojeommeo.user.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.ninjasquad.springmockk.MockkBean
-import com.ojeommeo.domain.user.dto.SignUpRequest
+import com.ojeommeo.domain.auth.dto.SignUpRequest
+import com.ojeommeo.domain.auth.mapper.toUserEntity
 import com.ojeommeo.domain.user.entity.User
-import com.ojeommeo.domain.user.mapper.toUserEntity
 import com.ojeommeo.domain.user.service.UserService
 import com.ojeommeo.user.testSignInRequest
 import io.mockk.every
@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.post
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class UserControllerTest
+class AuthControllerTest
     @Autowired
     constructor(
         private val mockMvc: MockMvc,

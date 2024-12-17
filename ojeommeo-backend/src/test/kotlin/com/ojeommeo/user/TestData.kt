@@ -1,7 +1,7 @@
 package com.ojeommeo.user
 
-import com.ojeommeo.domain.user.dto.LoginRequest
-import com.ojeommeo.domain.user.dto.SignUpRequest
+import com.ojeommeo.domain.auth.dto.LoginRequest
+import com.ojeommeo.domain.auth.dto.SignUpRequest
 
 fun testSignInRequest() =
     SignUpRequest(

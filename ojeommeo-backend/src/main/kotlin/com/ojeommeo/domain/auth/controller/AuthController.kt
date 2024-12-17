@@ -1,9 +1,10 @@
-package com.ojeommeo.domain.user.controller
+package com.ojeommeo.domain.auth.controller
 
-import com.ojeommeo.domain.user.dto.LoginRequest
-import com.ojeommeo.domain.user.dto.SignUpRequest
-import com.ojeommeo.domain.user.mapper.toUserEntity
-import com.ojeommeo.domain.user.service.UserService
+import com.ojeommeo.domain.auth.dto.LoginRequest
+import com.ojeommeo.domain.auth.dto.LoginResponse
+import com.ojeommeo.domain.auth.dto.SignUpRequest
+import com.ojeommeo.domain.auth.mapper.toUserEntity
+import com.ojeommeo.domain.auth.service.AuthService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -13,20 +14,20 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class UserController(
-    private val userService: UserService,
+class AuthController(
+    private val authService: AuthService,
     private val passwordEncoder: PasswordEncoder,
 ) {
-    @PostMapping("/api/users")
+    @PostMapping("/api/auth/sign-up")
     fun signUp(
         @Valid @RequestBody signUpRequest: SignUpRequest,
     ): ResponseEntity<Unit> {
-        userService.signUp(signUpRequest.toUserEntity(passwordEncoder))
+        authService.signUp(signUpRequest.toUserEntity(passwordEncoder))
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
 
-    @PostMapping("/api/users/login")
+    @PostMapping("/api/auth/login")
     fun login(
         @Valid @RequestBody loginRequest: LoginRequest,
-    ): ResponseEntity<String> = ResponseEntity.ok(userService.login(loginRequest))
+    ): ResponseEntity<LoginResponse> = ResponseEntity.ok(authService.login(loginRequest))
 }

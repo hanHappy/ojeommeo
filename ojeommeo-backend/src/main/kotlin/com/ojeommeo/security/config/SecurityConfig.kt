@@ -35,8 +35,8 @@ class SecurityConfig(
             .csrf { it.disable() }
             .cors { corsConfigurationSource() }
             .authorizeHttpRequests { auth ->
-                auth.requestMatchers(HttpMethod.POST, "/api/users").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/users/login").permitAll()
+                auth.requestMatchers(HttpMethod.POST, "/api/auth/sign-up").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                     .anyRequest().authenticated()
             }
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)

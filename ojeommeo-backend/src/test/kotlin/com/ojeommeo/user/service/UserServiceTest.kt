@@ -1,6 +1,7 @@
 package com.ojeommeo.user.service
 
-import com.ojeommeo.domain.user.mapper.toUserEntity
+import com.ojeommeo.domain.auth.mapper.toUserEntity
+import com.ojeommeo.domain.auth.service.AuthService
 import com.ojeommeo.domain.user.service.UserService
 import com.ojeommeo.security.repository.JwtRefreshTokenRepository
 import com.ojeommeo.user.testLoginRequest
@@ -15,13 +16,14 @@ import org.springframework.security.crypto.password.PasswordEncoder
 class UserServiceTest
     @Autowired
     constructor(
+        private val authService: AuthService,
         private val userService: UserService,
         private val passwordEncoder: PasswordEncoder,
         private val jwtRefreshTokenRepository: JwtRefreshTokenRepository,
     ) {
         @Test
         fun `회원 가입 시 DB에 데이터가 저장된다`() {
-            val savedUser = userService.signUp(testSignInRequest().toUserEntity(passwordEncoder))
+            val savedUser = authService.signUp(testSignInRequest().toUserEntity(passwordEncoder))
             assertThat(savedUser).isNotNull()
 
             val savedUserId = savedUser.id!!
@@ -33,23 +35,23 @@ class UserServiceTest
 
         @Test
         fun `로그인 시 access token을 반환한다`() {
-            val savedUser = userService.signUp(testSignInRequest().toUserEntity(passwordEncoder))
+            val savedUser = authService.signUp(testSignInRequest().toUserEntity(passwordEncoder))
 
             val user = userService.getUserByUsername(savedUser.username)
             assertThat(user).isNotNull()
 
-            val accessToken = userService.login(testLoginRequest())
+            val accessToken = authService.login(testLoginRequest())
             assertThat(accessToken).isNotNull()
         }
 
         @Test
         fun `로그인 시 refresh token이 DB에 저장된다`() {
             // given
-            val savedUser = userService.signUp(testSignInRequest().toUserEntity(passwordEncoder))
+            val savedUser = authService.signUp(testSignInRequest().toUserEntity(passwordEncoder))
             assertThat(savedUser.id).isNotNull()
 
             // when
-            userService.login(testLoginRequest())
+            authService.login(testLoginRequest())
 
             // then
             val refreshToken = jwtRefreshTokenRepository.findByUserId(userId = savedUser.id!!)
