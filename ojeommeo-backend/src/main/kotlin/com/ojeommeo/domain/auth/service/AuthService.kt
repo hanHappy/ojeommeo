@@ -12,7 +12,9 @@ import com.ojeommeo.security.repository.JwtRefreshTokenRepository
 import com.ojeommeo.security.service.JwtService
 import jakarta.transaction.Transactional
 import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.AuthenticationException
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
@@ -37,28 +39,33 @@ class AuthService(
 
     @Transactional
     fun login(loginRequest: LoginRequest): LoginResponse {
-        val authentication =
-            authenticationManager.authenticate(
-                UsernamePasswordAuthenticationToken(loginRequest.username, loginRequest.password),
+        try {
+            val authentication =
+                authenticationManager.authenticate(
+                    UsernamePasswordAuthenticationToken(loginRequest.username, loginRequest.password),
+                )
+            SecurityContextHolder.getContext().authentication = authentication
+
+            val userDetails = authentication.principal as UserDetails
+            val accessToken = jwtService.generateAccessToken(userDetails)
+            val refreshToken = jwtService.generateRefreshToken(userDetails)
+
+            val user =
+                userRepository.findByUsername(loginRequest.username)
+                    .orElseThrow { ServiceException(ErrorCode.USER_NOT_FOUND) }
+
+            jwtRefreshTokenRepository.save(
+                JwtRefreshToken(
+                    user = user,
+                    token = refreshToken,
+                    expireAt = jwtService.extractExpiration(refreshToken),
+                ),
             )
-        SecurityContextHolder.getContext().authentication = authentication
-
-        val userDetails = authentication.principal as UserDetails
-        val accessToken = jwtService.generateAccessToken(userDetails)
-        val refreshToken = jwtService.generateRefreshToken(userDetails)
-
-        val user =
-            userRepository.findByUsername(loginRequest.username)
-                .orElseThrow { ServiceException(ErrorCode.USER_NOT_FOUND) }
-
-        jwtRefreshTokenRepository.save(
-            JwtRefreshToken(
-                user = user,
-                token = refreshToken,
-                expireAt = jwtService.extractExpiration(refreshToken),
-            ),
-        )
-
-        return user.toLoginResponse(accessToken)
+            return user.toLoginResponse(accessToken)
+        } catch (e: BadCredentialsException) {
+            throw ServiceException(ErrorCode.INVALID_CREDENTIALS)
+        } catch (e: AuthenticationException) {
+            throw ServiceException(ErrorCode.UNAUTHORIZED)
+        }
     }
 }
