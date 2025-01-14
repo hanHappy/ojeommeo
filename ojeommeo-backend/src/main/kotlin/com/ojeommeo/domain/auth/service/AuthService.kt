@@ -54,6 +54,8 @@ class AuthService(
                 userRepository.findByUsername(loginRequest.username)
                     .orElseThrow { ServiceException(ErrorCode.USER_NOT_FOUND) }
 
+            jwtRefreshTokenRepository.findByUserId(user.id!!)
+
             jwtRefreshTokenRepository.save(
                 JwtRefreshToken(
                     user = user,

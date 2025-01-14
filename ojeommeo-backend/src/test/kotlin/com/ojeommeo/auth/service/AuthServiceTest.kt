@@ -1,11 +1,11 @@
-package com.ojeommeo.user.service
+package com.ojeommeo.auth.service
 
+import com.ojeommeo.auth.testLoginRequest
+import com.ojeommeo.auth.testSignUpRequest
 import com.ojeommeo.domain.auth.mapper.toUserEntity
 import com.ojeommeo.domain.auth.service.AuthService
 import com.ojeommeo.domain.user.service.UserService
 import com.ojeommeo.security.repository.JwtRefreshTokenRepository
-import com.ojeommeo.user.testLoginRequest
-import com.ojeommeo.user.testSignInRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.security.crypto.password.PasswordEncoder
 
 @SpringBootTest
-class UserServiceTest
+class AuthServiceTest
     @Autowired
     constructor(
         private val authService: AuthService,
@@ -23,7 +23,7 @@ class UserServiceTest
     ) {
         @Test
         fun `회원 가입 시 DB에 데이터가 저장된다`() {
-            val savedUser = authService.signUp(testSignInRequest().toUserEntity(passwordEncoder))
+            val savedUser = authService.signUp(testSignUpRequest().toUserEntity(passwordEncoder))
             assertThat(savedUser).isNotNull()
 
             val savedUserId = savedUser.id!!
@@ -35,7 +35,7 @@ class UserServiceTest
 
         @Test
         fun `로그인 시 access token을 반환한다`() {
-            val savedUser = authService.signUp(testSignInRequest().toUserEntity(passwordEncoder))
+            val savedUser = authService.signUp(testSignUpRequest().toUserEntity(passwordEncoder))
 
             val user = userService.getUserByUsername(savedUser.username)
             assertThat(user).isNotNull()
@@ -47,7 +47,7 @@ class UserServiceTest
         @Test
         fun `로그인 시 refresh token이 DB에 저장된다`() {
             // given
-            val savedUser = authService.signUp(testSignInRequest().toUserEntity(passwordEncoder))
+            val savedUser = authService.signUp(testSignUpRequest().toUserEntity(passwordEncoder))
             assertThat(savedUser.id).isNotNull()
 
             // when

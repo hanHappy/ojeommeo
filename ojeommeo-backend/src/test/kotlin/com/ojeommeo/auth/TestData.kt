@@ -1,9 +1,10 @@
-package com.ojeommeo.user
+package com.ojeommeo.auth
 
 import com.ojeommeo.domain.auth.dto.LoginRequest
+import com.ojeommeo.domain.auth.dto.LoginResponse
 import com.ojeommeo.domain.auth.dto.SignUpRequest
 
-fun testSignInRequest() =
+fun testSignUpRequest() =
     SignUpRequest(
         username = "han",
         nickname = "한해피",
@@ -14,4 +15,12 @@ fun testLoginRequest() =
     LoginRequest(
         username = "han",
         password = "ojeommeo123!",
+    )
+
+fun testLoginResponse() =
+    LoginResponse(
+        id = 999L,
+        username = "han",
+        nickname = "한상면",
+        token = "token",
     )
